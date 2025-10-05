@@ -1,0 +1,35 @@
+localhost {
+    @bad path /bad /bad/*
+    @rg path /ryktet-gar /ryktet-gar/* /rg /rg/*
+
+    handle @bad {
+        reverse_proxy http://localhost:22071
+    }
+
+    handle @rg {
+        uri replace /rg /ryktet-gar
+        reverse_proxy http://localhost:22072
+    }
+
+    handle_path /* {
+        root * ./static
+        encode
+        file_server
+    }
+
+    handle_path /cf {
+        root * ./static/cf/index.html
+        file_server
+    }
+
+    handle_path / {
+        root * ./static/index.html
+        file_server
+    }
+
+    handle_errors {
+        root * ./static/404
+        try_files {path} /index.html
+        file_server
+    }
+}
