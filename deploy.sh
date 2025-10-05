@@ -1,0 +1,1 @@
+rsync -avz --delete . banddans.se:~/src/banddans_server_4
