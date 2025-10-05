@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - main
-
+    workflow_dispatch:
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -23,7 +23,3 @@ jobs:
             - name: Deploy files
               run: |
                   rsync -avz --delete ./ banddans.se:~/src/banddans_server_4
-
-            - name: Restart server
-              run: |
-                  ssh -i ~/.ssh/id_ed25519 banddans.se 'sudo pm2 restart all'
